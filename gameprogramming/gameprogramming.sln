@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Match3three", "Match3three\Match3three.vcxproj", "{017847A5-34D2-4D40-BA20-866AB32CA831}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tetris1", "Tetris1\Tetris1.vcxproj", "{4F088B71-BC87-458B-B69B-3A5C9E8F3524}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{017847A5-34D2-4D40-BA20-866AB32CA831}.Release|x64.Build.0 = Release|x64
 		{017847A5-34D2-4D40-BA20-866AB32CA831}.Release|x86.ActiveCfg = Release|Win32
 		{017847A5-34D2-4D40-BA20-866AB32CA831}.Release|x86.Build.0 = Release|Win32
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Debug|x64.ActiveCfg = Debug|x64
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Debug|x64.Build.0 = Debug|x64
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Debug|x86.ActiveCfg = Debug|Win32
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Debug|x86.Build.0 = Debug|Win32
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Release|x64.ActiveCfg = Release|x64
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Release|x64.Build.0 = Release|x64
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Release|x86.ActiveCfg = Release|Win32
+		{4F088B71-BC87-458B-B69B-3A5C9E8F3524}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
