@@ -53,14 +53,14 @@ void GameMainScene_Update(void)
 }
 
 /*********************************************************
-	ゲームメイン画面　：　更新処理
+	ゲームメイン画面　：　描画処理
 	引　数　：　なし
 	戻り値　：　なし
 **********************************************************/
 
 void GmaeMainScene_Draw(void)
 {
-	DrawGraph(0, 0, BackGround_Image, TRUE);
+	DrawGraph(0, 0, BackGround_image, TRUE);
 
 	Block_Draw();
 	SetFontSize(100);
@@ -68,6 +68,13 @@ void GmaeMainScene_Draw(void)
 	DrawFormatString(800, 100, GetColor(255, 255, 255), "%d", Score);
 	SetFontSize(20);
 }
+
+
+/*********************************************************
+	ブロック機能　：　スコア取得処理
+	引　数　：　なし
+	戻り値　：　なし
+**********************************************************/
 
 int Get_Score(void)
 {

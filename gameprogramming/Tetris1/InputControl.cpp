@@ -47,11 +47,13 @@ void InputControl_Initialize(void)
 **********************************************************/
 void InputControl_Update(void)
 {
-	int i;
-	XINPUT_STATE input_controller;
+	int i;								//ループカウンタ
+	XINPUT_STATE input_controller;		//コントローラー入力情報
 
-	GetJoypadInputState(DX_INPUT_PAD1, &input_controller);
+	//コントローラーの入力情報
+	GetJoypadXInputState(DX_INPUT_PAD1, &input_controller);
 
+	//入力状態の更新
 	for (i = 0; i < XINPUT_BUTTON_MAX; i++)
 	{
 		if (input_controller.Buttons[i] == TRUE)

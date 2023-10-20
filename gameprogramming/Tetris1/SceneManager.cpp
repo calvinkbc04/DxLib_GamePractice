@@ -28,7 +28,7 @@ void SceneManager_Initialize(GAME_MODE mode)
 		case E_TITLE:
 			read_error = TitleScene_Initialize();
 			break;
-		case EGAMEMAIN:
+		case E_GAMEMAIN:
 			read_error = GameMainScene_Initialize();
 			break;
 		case E_RANKING:
@@ -61,7 +61,7 @@ void SceneManager_Initialize(GAME_MODE mode)
 void SceneManager_Update(void)
 {
 	//前フレームとゲームモードが違っていたらシーンを切り替える
-	if (game_mode !_ next_mode)
+	if (game_mode != next_mode)
 	{
 		SceneManager_Initialize(next_mode);
 	}

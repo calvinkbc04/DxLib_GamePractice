@@ -57,7 +57,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevIstance, _I
 		InputControl_Update();
 
 		//シーン管理機能更新処理
-		SceneManager_Draw();
+		SceneManager_Update();
 
 		//シーン管理機能描画処理
 		SceneManager_Draw();

@@ -147,7 +147,7 @@ int Block_Initialize(void)
 	DeleteLine = 0;
 
 	//エラーチェック
-	for (i = 0; i < 3, i++)
+	for (i = 0; i < 3; i++)
 	{
 		if (SoundEffect[i] == -1)
 		{
@@ -245,7 +245,7 @@ void Block_Draw(void)
 			//次のブロックを描画
 			DrawGraph(BLOCK_SIZE * j + BLOCK_NEXT_POS_X, BLOCK_SIZE * i + BLOCK_NEXT_POS_Y, BlockImage[Next[i][j]], TRUE);
 			//ストックされたブロックを描画
-			DrawGraph(BLOCK_SIZE * j + BLOCK_STOCK_POS_X, BLOCK_SIZE * i + BLOCK_STOCK_POS_Y, BlockImage[Stock[i][j]] TRUE);
+			DrawGraph(BLOCK_SIZE * j + BLOCK_STOCK_POS_X, BLOCK_SIZE * i + BLOCK_STOCK_POS_Y, BlockImage[Stock[i][j]], TRUE);
 		}
 	}
 	//落ちるてくるブロックの描画
@@ -296,7 +296,7 @@ void create_field(void)
 	//フィールドの生成
 	for (i = 0; i < FIELD_HEIGHT; i++)
 	{
-		for (j = 0, j < FIELD_WIDTH; j++)
+		for (j = 0; j < FIELD_WIDTH; j++)
 		{
 			//フィールド値の設定
 			if (j == 0 || j == FIELD_WIDTH - 1 || i == FIELD_HEIGHT - 1)
@@ -538,7 +538,7 @@ void lock_block(int x, int y)
 		{
 			if (DropBlock[i][j] != E_BLOCK_EMPTY)
 			{
-				Field[y + i][x; 1] = DropBlock[i][j];
+				Field[y + i][x + 1] = DropBlock[i][j];
 			}
 		}
 	}
@@ -547,8 +547,8 @@ void lock_block(int x, int y)
 
 
 /*********************************************************
-	ブロック機能　：　着地したブロックを固定済みにする
-	引　数　：　落下ブロックの座標(x, y)
+	ブロック機能　：　ブロックの横一列確認処理
+	引　数　：　なし
 	戻り値　：　なし
 **********************************************************/
 
@@ -556,7 +556,7 @@ void check_line(void)
 {
 	int i, j, k;			//ループカウンタ
 
-	for (i = 0, i < FIELD_HEIGHT - 1; i++)
+	for (i = 0; i < FIELD_HEIGHT - 1; i++)
 	{
 		for (j = 1; j < FIELD_WIDTH; j++)
 		{

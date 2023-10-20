@@ -67,8 +67,8 @@ int RankingScene_Initialize(void)
 	switch (DispMode)
 	{
 		case RANKING_INPUT_MODE:
-			CURSOR.x = 0;
-			CURSOR.y = 0;
+			Cursor.x = 0;
+			Cursor.y = 0;
 			name_num = 0;
 			break;
 		case RANKING_DISP_MODE:
@@ -90,7 +90,7 @@ void RankingScene_Update(void)
 {
 	switch (DispMode)
 	{
-		case RANKING_INPUT_MODE;
+	case RANKING_INPUT_MODE:
 			ranking_input_name();
 			break;
 		case RANKING_DISP_MODE:
@@ -171,13 +171,14 @@ void file_read(void)
 	{
 		OutputDebugString("ファイルが読み込めません");
 		OutputDebugString("ファイルを生成します");
-		file_write()
+		file_write();
 	}
 	else
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fscanf_s(fp, "%2d, %[^,], %10d\n", &Ranking_Data[i].rank, Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
+			fscanf_s(fp, "%2d, %[^,], %10d\n", &Ranking_Data[i].rank, 
+				Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
 		}
 
 		fclose(fp);
@@ -190,23 +191,24 @@ void file_read(void)
 	戻り値　：　なし
 **********************************************************/
 
-void file_read(void)
+void file_write(void)
 {
 	FILE* fp = NULL;
 	int i;
 
-	OutputDebugString("ファイルを読み込みます");
+	OutputDebugString("ファイルを書み込みます");
 	fopen_s(&fp, RANKING_FILE, "w");
 	
 	if (fp == NULL)
 	{
-		OutputDebugString("ファイルが読み込めません");
+		OutputDebugString("ファイルが書き込めません");
 	}
 	else
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fprintf(fp, "2d,%[^,],%10d\n", Ranking_Data[i].rank, Ranking_Data[i].name, Ranking_Data[i].score);
+			fprintf(fp, "%2d,%[^,],%10d\n", Ranking_Data[i].rank,
+				Ranking_Data[i].name, Ranking_Data[i].score);
 		}
 
 		fclose(fp);
