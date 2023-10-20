@@ -121,7 +121,7 @@ void TitleScene_Update(void)
 	戻り値　：　なし
 **********************************************************/
 
-void TitelScene_Draw(void)
+void TitleScene_Draw(void)
 {
 	SetFontSize(50);
 	DrawString(100, 100, "テトリス", GetColor(255, 255, 255));

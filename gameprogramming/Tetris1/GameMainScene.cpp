@@ -58,7 +58,7 @@ void GameMainScene_Update(void)
 	戻り値　：　なし
 **********************************************************/
 
-void GmaeMainScene_Draw(void)
+void GameMainScene_Draw(void)
 {
 	DrawGraph(0, 0, BackGround_image, TRUE);
 

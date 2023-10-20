@@ -100,6 +100,7 @@ int GetButton(int button)
 	{
 		ret = TRUE;
 	}
+
 	return ret;
 }
 
@@ -121,8 +122,15 @@ int GetButtonUp(int button)
 	{
 		ret = TRUE;
 	}
+
 	return ret;
 }
+
+/*********************************************************
+	入力制御機能　：　ゲーム終了用のボタン判定処理
+	引　数　：　なし
+	戻り値　：　TRUE(押した瞬間), FALSE(押した瞬間ではない)
+**********************************************************/
 
 int GetExitButton(void)
 {
@@ -132,5 +140,6 @@ int GetExitButton(void)
 	{
 		ret = TRUE;
 	}
+
 	return ret;
 }

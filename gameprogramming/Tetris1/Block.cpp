@@ -370,7 +370,7 @@ void move_block(void)
 	{
 		if (check_overlap(DropBlock_X + 1, DropBlock_Y) == TRUE)
 		{
-			DropBlock_Y++;
+			DropBlock_X++;
 		}
 	}
 
@@ -484,7 +484,7 @@ void turn_block(int clockwise)
 		{
 			DropBlock_X--;
 		}
-		if (check_overlap(DropBlock_X, DropBlock_Y) && DropBlock_X >= E_BLOCK_EMPTY)
+		if (check_overlap(DropBlock_X, DropBlock_Y) && DropBlock_X <= E_BLOCK_EMPTY)
 		{
 			DropBlock_X++;
 		}
@@ -538,7 +538,7 @@ void lock_block(int x, int y)
 		{
 			if (DropBlock[i][j] != E_BLOCK_EMPTY)
 			{
-				Field[y + i][x + 1] = DropBlock[i][j];
+				Field[y + i][x + j] = DropBlock[i][j];
 			}
 		}
 	}

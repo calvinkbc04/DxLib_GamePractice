@@ -1,5 +1,6 @@
 #pragma once
 
+#include "InputControl.h"
 
 void InputControl_Initialize(void);
 void InputControl_Update(void);
