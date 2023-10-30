@@ -18,9 +18,9 @@
 
 typedef struct
 {
-	int rank;
-	char name[RANKING_NAME_LEN];
-	int score;
+	int rank;								//ランク
+	char name[RANKING_NAME_LEN];			//名前
+	int score;								//スコア
 }T_RANKING;
 
 typedef struct
@@ -34,22 +34,22 @@ typedef struct
 グローバル変数宣言
 **********************************************************/
 
-T_RANKING Ranking_Data[RANKING_MAX];
-T_RANKING New_Score;
-int DispMode;
+T_RANKING Ranking_Data[RANKING_MAX];		//ランキングデータ
+T_RANKING New_Score;						//新しいスコアデータ
+int DispMode;								//表示モード
 
-T_CURSOR Cursor;
+T_CURSOR Cursor;							//カーソル用変数
 int name_num;
 
 /*********************************************************
 プロトタイプ宣言
 **********************************************************/
 
-void file_read(void);
-void file_write(void);
-void ranking_sort(void);
-void ranking_input_name(void);
-void ranking_input_name_draw(void);
+void file_read(void);						//ファイル読み込み
+void file_write(void);						//ファイル書き込み
+void ranking_sort(void);					//ランキングソート処理
+void ranking_input_name(void);				//名前入力処理
+void ranking_input_name_draw(void);			//名前入力描画処理
 
 
 /*********************************************************
@@ -177,8 +177,7 @@ void file_read(void)
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fscanf_s(fp, "%2d, %[^,], %10d\n", &Ranking_Data[i].rank, 
-				Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
+			fscanf_s(fp, "%2d,%[^,],%10d\n", &Ranking_Data[i].rank, Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
 		}
 
 		fclose(fp);
