@@ -192,9 +192,9 @@ void Block_Update(void)
 	{
 		turn_block(TURN_CROCKWICE);
 	}
-
+	
 	//落下処理
-	WaitTime++;
+	WaitTime++;			//カウンタの更新
 	if (WaitTime > DROP_SPEED)
 	{
 		if (check_overlap(DropBlock_X, DropBlock_Y + 1) == TRUE)
@@ -414,7 +414,6 @@ void change_block(void)
 				temp[i][j] = DropBlock[i][j];
 				DropBlock[i][j] = Stock[i][j];
 				Stock[i][j] = temp[i][j];
-
 			}
 		}
 	}
@@ -462,7 +461,7 @@ void turn_block(int clockwise)
 		else
 		{
 			//ブロックを一時保存する
-			for (i = 0; BLOCK_TROUT_SIZE; i++)
+			for (i = 0; i < BLOCK_TROUT_SIZE; i++)
 			{
 				for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 				{
