@@ -377,9 +377,9 @@ void move_block(void)
 	//上入力時（ハードドロップ処理）
 	if (GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
-		if (check_overlap(DropBlock_X, DropBlock_Y + 1) == TRUE)
+		while (check_overlap(DropBlock_X, DropBlock_Y + 1) == TRUE)
 		{
-			DropBlock_Y--;
+			DropBlock_Y++;
 		}
 	}
 

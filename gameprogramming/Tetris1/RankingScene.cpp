@@ -177,7 +177,7 @@ void file_read(void)
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fscanf_s(fp, "%2d,%x,%10d\n", &Ranking_Data[i].rank, Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
+			fscanf_s(fp, "%2d,%[^,],%10d\n", &Ranking_Data[i].rank, Ranking_Data[i].name, RANKING_NAME_LEN, &Ranking_Data[i].score);
 		}
 
 		fclose(fp);
@@ -206,7 +206,7 @@ void file_write(void)
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fprintf(fp, "%2d,%[^,],%10d\n", Ranking_Data[i].rank, Ranking_Data[i].name, Ranking_Data[i].score);
+			fprintf(fp, "%2d,%s,%10d\n", Ranking_Data[i].rank, Ranking_Data[i].name, Ranking_Data[i].score);
 		}
 
 		fclose(fp);
@@ -341,18 +341,23 @@ void ranking_input_name_draw(void)
 	SetFontSize(40);
 	DrawFormatString(300, 150, GetColor(255, 255, 255), "名前を入力してください");
 
-	//洗濯用文字を描画
-	for (i = 0; i < 26; i++)
+	//選択用文字を描画
+	for (i = 0; i < 26; i++)	//アルファベット
 	{
 		DrawFormatString((i % 13 * 50) + 300, (i / 13 * 50) + 330, GetColor(255, 255, 255), "%-3c", 'a' + i);
 		DrawFormatString((i % 13 * 50) + 300, (i / 13 * 50) + 430, GetColor(255, 255, 255), "%-3c", 'A' + i);
 	}
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 10; i++)	//数字
 	{
 		DrawFormatString((i % 13 * 50) + 300, (i / 13 * 50) + 530, GetColor(255, 255, 255), "%-3c", '0' + i);
 	}
+	
+	//決定ボタン&消去ボタン
+	DrawFormatString(900, 530, GetColor(5, 250, 20), ">");
+	DrawFormatString(800, 530, GetColor(255, 50, 20), "-");
 
-	DrawFormatString(300, 220, GetColor(255, 50, 20), ">%s", New_Score.name);
+	//入力した名前
+	DrawFormatString(300, 220, GetColor(25, 50, 220), ">%s", New_Score.name);
 
 	SetFontSize(20);
 
