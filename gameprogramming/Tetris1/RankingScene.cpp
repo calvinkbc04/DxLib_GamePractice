@@ -40,6 +40,7 @@ int DispMode;								//表示モード
 
 T_CURSOR Cursor;							//カーソル用変数
 int name_num;
+int background_image;
 
 /*********************************************************
 プロトタイプ宣言
@@ -88,6 +89,8 @@ int RankingScene_Initialize(void)
 
 void RankingScene_Update(void)
 {
+	background_image = LoadGraph("images/ranking.bmp");
+
 	switch (DispMode)
 	{
 	case RANKING_INPUT_MODE:
@@ -112,6 +115,7 @@ void RankingScene_Update(void)
 void RankingScene_Draw(void)
 {
 	int i;
+	DrawGraph(300, 100, background_image, TRUE);
 
 	switch (DispMode)
 	{
@@ -122,7 +126,7 @@ void RankingScene_Draw(void)
 	default:
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			DrawFormatString(20, 10 + (i * 25), GetColor(255, 255, 255), "%2d, %10s, %10d", Ranking_Data[i].rank, Ranking_Data[i].name, Ranking_Data[i].score);
+			DrawFormatString(325, 180 + (i * 25), GetColor(255, 255, 255), "%2d, %10s, %10d", Ranking_Data[i].rank, Ranking_Data[i].name, Ranking_Data[i].score);
 		}
 		break;
 	}
@@ -337,6 +341,7 @@ void ranking_input_name(void)
 void ranking_input_name_draw(void)
 {
 	int i;
+	
 
 	SetFontSize(40);
 	DrawFormatString(300, 150, GetColor(255, 255, 255), "名前を入力してください");

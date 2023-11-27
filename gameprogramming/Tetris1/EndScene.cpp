@@ -1,6 +1,8 @@
 #include "EndScene.h"
 #include "DxLib.h"
+#include "SceneManager.h"
 
+int End_image;
 int wait_count;
 
 /*********************************************************
@@ -12,6 +14,13 @@ int wait_count;
 int EndScene_Initialize(void)
 {
 	int ret = 0;
+
+	End_image = LoadGraph("images/end.bmp");
+
+	if (End_image == -1)
+	{
+		ret = -1;
+	}
 
 	wait_count = 0;
 
@@ -39,7 +48,7 @@ void EndScene_Update(void)
 
 void EndScene_Draw(void)
 {
-	DrawString(10, 10, "ƒGƒ“ƒh‰æ–Ê‚Å‚·", GetColor(255, 255, 255));
+	DrawGraph(300, 100, End_image, TRUE);
 }
 
 /*********************************************************

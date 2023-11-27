@@ -23,7 +23,7 @@ enum
 
 int cursor_number;
 int sounds[E_SOUND_MAX];
-
+int Background_image;
 
 /*********************************************************
 	タイトル画面　：　初期化処理
@@ -37,6 +37,7 @@ int TitleScene_Initialize(void)
 
 	cursor_number = 0;
 
+	Background_image = LoadGraph("images/title.bmp");
 	sounds[E_TITLE_BGM] = LoadSoundMem("sounds/BGM041.ogg");
 	sounds[E_TITLE_SE_CURSOR] = LoadSoundMem("sounds/SE1.mp3");
 	sounds[E_TITLE_SE_SELECT] = LoadSoundMem("sounds/SE2.mp3");
@@ -123,12 +124,13 @@ void TitleScene_Update(void)
 
 void TitleScene_Draw(void)
 {
+	DrawGraph(300, 100, Background_image, TRUE);
 	SetFontSize(50);
-	DrawString(100, 100, "ごく普通のテトリス", GetColor(255, 255, 255));
-	DrawString(300, 300, "スタート", GetColor(255, 255, 255));
-	DrawString(300, 350, "ランキング", GetColor(255, 255, 255));
-	DrawString(300, 400, "エンド", GetColor(255, 255, 255));
+	/*DrawString(100, 100, "ごく普通のテトリス", GetColor(255, 255, 255));
+DrawString(300, 300, "スタート", GetColor(255, 255, 255));
+DrawString(300, 350, "ランキング", GetColor(255, 255, 255));
+DrawString(300, 400, "エンド", GetColor(255, 255, 255));*/
 	SetFontSize(20);
 
-	DrawCircle(275, 325 + (cursor_number * 50), 15, GetColor(255, 0, 0));
+	DrawCircle(460, 325 + (cursor_number * 50), 15, GetColor(255, 0, 0));
 }
