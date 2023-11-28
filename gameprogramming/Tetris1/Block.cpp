@@ -94,12 +94,15 @@ int Stock_Flg;			//ストックフラグ
 int Generate_Flg;		//生成フラグ
 int DeleteLine;			//消したラインの数
 int SoundEffect[3];		//SE
+int BombCheck;			//ボムボタン押されたか確認
+int BombCount;			//ボムの残りの数
 
 /*プロトタイプ宣言*/
 void create_field(void);			//フィールドの生成処理
 void create_block(void);			//ブロックの生成処理
 void move_block(void);				//ブロックの移動処理
 void change_block(void);			//ストック交換処理
+void block_to_bomb(void);			//ブロックがボムになる処理
 void turn_block(int clockwize);		//ブロック回転処理
 int check_overlap(int x, int y);	//範囲外チェック処理
 void lock_block(int x, int y);		//着地したブロックを固定済みに変更する処理
@@ -116,6 +119,7 @@ int Block_Initialize(void)
 {
 	int ret = 0;	//戻り値
 	int i = 0;
+	
 
 	//ブロック画像読み込み
 	ret = LoadDivGraph("images/block.png", E_BLOCK_IMAGE_MAX, 10, 1, BLOCK_SIZE, BLOCK_SIZE, BlockImage);
@@ -172,7 +176,7 @@ void Block_Update(void)
 	move_block();
 
 	//ブロックのストック
-	if ((GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) == TRUE) || (GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) == TRUE))
+	if (GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) == TRUE)
 	{
 		//生成可能であれば
 		if (Generate_Flg == TRUE)
@@ -180,6 +184,13 @@ void Block_Update(void)
 			change_block();		//ストック交換処理
 			//ブロックの回転を正位置にする
 		}
+	}
+
+	//ボムになる
+	if (GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) == TRUE)
+	{
+		BombCheck = 1;
+		block_to_bomb();
 	}
 
 	//ブロックの回転(反時計回り)
@@ -431,6 +442,44 @@ void change_block(void)
 		create_block();
 	}
 }
+
+
+/*********************************************************
+	ブロック機能　：　ブロックがボムになる処理
+	引　数　：　なし
+	戻り値　：　なし
+**********************************************************/
+
+void block_to_bomb(void)
+{
+	if (BombCheck == 1 && BombCheck >= 1)
+	{
+		int i, j, k;			//ループカウンタ
+
+		for (i = 0; i < FIELD_HEIGHT - 1; i++)
+		{
+			for (j = 1; j < FIELD_WIDTH; j++)
+			{
+				//カウントを増加
+				DeleteLine++;
+
+				//1段下げる
+				for (k = i; k > 0; k--)
+				{
+					for (j = 1; j < FIELD_WIDTH; j++)
+					{
+						Field[k][j] = Field[k - 1][j];
+					}
+				}
+				PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+			}
+		}
+	}
+
+	BombCount += -1;
+	BombCheck = NULL;
+}
+
 
 
 /*********************************************************

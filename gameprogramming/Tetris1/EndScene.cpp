@@ -5,6 +5,9 @@
 int End_image;
 int wait_count;
 
+#define SCREEN_HEIGHT (720)
+#define SCREEN_WIDTH (1280)
+
 /*********************************************************
 	エンド画面　：　初期化処理
 	引　数　：　なし
@@ -48,7 +51,7 @@ void EndScene_Update(void)
 
 void EndScene_Draw(void)
 {
-	DrawGraph(300, 100, End_image, TRUE);
+	DrawExtendGraph(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, End_image, TRUE);
 }
 
 /*********************************************************
