@@ -93,20 +93,21 @@ int WaitTime;			//待機時間
 int Stock_Flg;			//ストックフラグ
 int Generate_Flg;		//生成フラグ
 int DeleteLine;			//消したラインの数
-int SoundEffect[3];		//SE
-int BombCheck;			//ボムボタン押されたか確認
-int BombCount;			//ボムの残りの数
+int SoundEffect[5];		//SE
+
+int BombCheck;			//ボム
+int Batu;
 
 /*プロトタイプ宣言*/
 void create_field(void);			//フィールドの生成処理
 void create_block(void);			//ブロックの生成処理
 void move_block(void);				//ブロックの移動処理
 void change_block(void);			//ストック交換処理
-void block_to_bomb(void);			//ブロックがボムになる処理
 void turn_block(int clockwize);		//ブロック回転処理
 int check_overlap(int x, int y);	//範囲外チェック処理
 void lock_block(int x, int y);		//着地したブロックを固定済みに変更する処理
 void check_line(void);				//ブロックの横一列確認処理
+
 
 
 /*********************************************************
@@ -119,7 +120,8 @@ int Block_Initialize(void)
 {
 	int ret = 0;	//戻り値
 	int i = 0;
-	
+	int BombCheck = 0;
+	Batu = LoadGraph("images/Batu.png", TRUE);
 
 	//ブロック画像読み込み
 	ret = LoadDivGraph("images/block.png", E_BLOCK_IMAGE_MAX, 10, 1, BLOCK_SIZE, BLOCK_SIZE, BlockImage);
@@ -128,11 +130,15 @@ int Block_Initialize(void)
 	SoundEffect[0] = LoadSoundMem("sounds/SE3.mp3");
 	SoundEffect[1] = LoadSoundMem("sounds/SE4.mp3");
 	SoundEffect[2] = LoadSoundMem("sounds/SE5.wav");
+	SoundEffect[3] = LoadSoundMem("sounds/8-bit-fail-sound.mp3");
+	SoundEffect[4] = LoadSoundMem("8-bit-bomb-explosion.wav");
 
 	//音量調整
 	ChangeVolumeSoundMem(150, SoundEffect[0]);
 	ChangeVolumeSoundMem(150, SoundEffect[1]);
 	ChangeVolumeSoundMem(130, SoundEffect[2]);
+	ChangeVolumeSoundMem(150, SoundEffect[3]);
+	ChangeVolumeSoundMem(150, SoundEffect[4]);
 
 	//フィールドの生成
 	create_field();
@@ -189,9 +195,23 @@ void Block_Update(void)
 	//ボムになる
 	if (GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) == TRUE)
 	{
-		BombCheck = 1;
-		block_to_bomb();
+		if (BombCheck < 1)
+		{
+			bomb_use();
+			BombCheck += 1;
+		}
+		else
+		{
+			PlaySoundMem(SoundEffect[3], DX_PLAYTYPE_BACK, TRUE);
+
+			out_bomb();
+		}
 	}
+
+	/*if (BombCheck > 0)
+	{
+		LoadGraphScreen(300, 300, "images/Batu.png",TRUE);
+	}*/
 
 	//ブロックの回転(反時計回り)
 	if ((GetButtonDown(XINPUT_BUTTON_A) == TRUE) || (GetButtonDown(XINPUT_BUTTON_Y) == TRUE))
@@ -445,41 +465,45 @@ void change_block(void)
 
 
 /*********************************************************
-	ブロック機能　：　ブロックがボムになる処理
+	ブロック機能　：　ボムボタン(LB)押したらブロックが消える処理
 	引　数　：　なし
 	戻り値　：　なし
 **********************************************************/
 
-void block_to_bomb(void)
+void bomb_use(void)
 {
-	if (BombCheck == 1 && BombCheck >= 1)
+	int i, j, k;			//ループカウンタ
+
+	PlaySoundMem(SoundEffect[4], DX_PLAYTYPE_BACK, TRUE);
+	
+	for (i = 0; i < FIELD_HEIGHT - 1; i++)
 	{
-		int i, j, k;			//ループカウンタ
-
-		for (i = 0; i < FIELD_HEIGHT - 1; i++)
+		for (j = 1; j < FIELD_WIDTH; j++)
 		{
-			for (j = 1; j < FIELD_WIDTH; j++)
+			//1段下げる
+			for (k = i; k > 0; k--)
 			{
-				//カウントを増加
-				DeleteLine++;
-
-				//1段下げる
-				for (k = i; k > 0; k--)
+				for (j = 1; j < FIELD_WIDTH; j++)
 				{
-					for (j = 1; j < FIELD_WIDTH; j++)
-					{
-						Field[k][j] = Field[k - 1][j];
-					}
+					Field[k][j] = Field[k - 1][j];
 				}
-				PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 			}
+			PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 		}
 	}
-
-	BombCount += -1;
-	BombCheck = NULL;
 }
 
+
+/*********************************************************
+	ブロック機能　：　ボム使ったら罰が描画される処理
+	引　数　：　なし
+	戻り値　：　なし
+**********************************************************/
+
+void out_bomb(void)
+{
+	DrawGraph(0, 0, Batu, TRUE);
+}
 
 
 /*********************************************************

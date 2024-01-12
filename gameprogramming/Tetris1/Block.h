@@ -7,3 +7,6 @@ void Block_Draw(void);
 
 int Get_GenerateFlg(void);
 int Get_Line(void);
+
+void bomb_use(void);
+void out_bomb(void);
